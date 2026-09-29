@@ -1,0 +1,14 @@
+/* Botones reutilizables. Variantes: .btn--ghost (contorno) y .btn--solid (relleno). */
+.btn{
+  appearance:none;cursor:pointer;
+  min-height:56px;padding:0 clamp(16px,4vw,40px);
+  font-family:var(--font);font-weight:200;font-size:clamp(.9rem,2.2vw,1.15rem);letter-spacing:-.01em;
+  border:1px solid var(--border);border-radius:0;
+  transition:background-color .25s ease,color .25s ease,border-color .25s ease;
+}
+.btn--ghost{background:transparent;color:rgba(255,255,255,.85)}
+.btn--ghost:hover{border-color:var(--fg);color:var(--fg)}
+.btn--solid{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn--solid:hover{background:transparent;color:var(--fg)}
+.btn:active{transform:translateY(1px)}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}

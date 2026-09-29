@@ -1,0 +1,15 @@
+/* Variables globales, reset y estilos base. Compartido por todas las páginas. */
+:root{
+  --fg:#fff;
+  --bg:#000;
+  --line:rgba(255,255,255,.09);
+  --border:rgba(255,255,255,.2);
+  --font:"Unbounded","Helvetica Neue",Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--fg);overflow-x:hidden;font-family:var(--font)}
+:focus-visible{outline:2px solid var(--fg);outline-offset:4px}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/forms.css">
+<title>Registrarse · DEEPSEEKAI</title>
+</head>
+<body>
+<main class="page">
+  <div class="top"><a href="index.html">DEEPSEEKAI</a></div>
+  <h2>Crea tu cuenta</h2>
+  <form class="stack" data-auth-form="register">
+    <label>Nombre de usuario<input name="username" required minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+" autocomplete="username"></label>
+    <label>Email<input name="email" type="email" required autocomplete="email"></label>
+    <label>Contraseña (mínimo 8 caracteres)<input name="password" type="password" required minlength="8" maxlength="72" autocomplete="new-password"></label>
+    <div class="msg" id="msg" role="alert"></div>
+    <button type="submit" class="btn btn--solid">Registrarse</button>
+  </form>
+  <p class="hint">¿Ya tienes cuenta? <a href="login.html">Iniciar sesión</a></p>
+</main>
+<script src="js/api.js"></script>
+<script src="js/auth-forms.js"></script>
+</body>
+</html>

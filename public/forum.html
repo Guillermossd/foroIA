@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/forms.css">
+<title>Subforo · DEEPSEEKAI</title>
+</head>
+<body>
+<main class="page">
+  <div class="top">
+    <a href="index.html">DEEPSEEKAI</a>
+    <nav>
+      <span id="guest" hidden><a href="login.html">Iniciar sesión</a> · <a href="register.html">Registrarse</a></span>
+      <span id="user" hidden><span id="who"></span> · <button class="link" id="logout" type="button">Cerrar sesión</button></span>
+    </nav>
+  </div>
+  <a class="link" href="boards.html">← Subforos</a>
+  <h2 class="title"><span id="name"></span><img id="logo" class="logo logo--lg" alt=""></h2>
+  <p class="sub" id="desc"></p>
+  <form class="stack" id="composer" hidden>
+    <label>Título<input name="title" required minlength="3" maxlength="120"></label>
+    <label>Texto<textarea name="body" required maxlength="5000"></textarea></label>
+    <div class="msg" id="msg" role="alert"></div>
+    <button type="submit" class="btn btn--solid">Publicar</button>
+  </form>
+  <section id="posts" aria-live="polite"></section>
+</main>
+<script src="js/api.js" onerror="document.querySelector('main').insertAdjacentHTML('beforeend','<p class=\'msg\'>No se pudo cargar '+this.getAttribute('src')+'. Comprueba que existe en public/js/.</p>')"></script>
+<script src="js/session.js" onerror="document.querySelector('main').insertAdjacentHTML('beforeend','<p class=\'msg\'>No se pudo cargar '+this.getAttribute('src')+'. Comprueba que existe en public/js/.</p>')"></script>
+<script src="js/forum.js" onerror="document.querySelector('main').insertAdjacentHTML('beforeend','<p class=\'msg\'>No se pudo cargar '+this.getAttribute('src')+'. Comprueba que existe en public/js/.</p>')"></script>
+</body>
+</html>

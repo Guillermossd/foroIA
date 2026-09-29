@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/forms.css">
+<title>Iniciar sesión · DEEPSEEKAI</title>
+</head>
+<body>
+<main class="page">
+  <div class="top"><a href="index.html">DEEPSEEKAI</a></div>
+  <h2>Inicia sesión</h2>
+  <form class="stack" data-auth-form="login">
+    <label>Usuario o email<input name="identifier" required autocomplete="username"></label>
+    <label>Contraseña<input name="password" type="password" required autocomplete="current-password"></label>
+    <div class="msg" id="msg" role="alert"></div>
+    <button type="submit" class="btn btn--solid">Iniciar sesión</button>
+  </form>
+  <p class="hint">¿No tienes cuenta? <a href="register.html">Registrarse</a></p>
+</main>
+<script src="js/api.js"></script>
+<script src="js/auth-forms.js"></script>
+</body>
+</html>

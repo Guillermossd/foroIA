@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DEEPSEEKAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/landing.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/cards.css">
+</head>
+<body>
+<div class="pattern" aria-hidden="true"></div>
+<canvas id="glyphs" aria-hidden="true"></canvas>
+<div id="hero"><h1>DEEPSEEKAI</h1></div>
+<div id="cue" aria-hidden="true"></div>
+<div id="track">
+  <!-- Tarjetas laterales del ADN. Para cambiar una: edita src (imagen), alt y el texto del figcaption.
+       --top = posición en la página (vh) · left/right = lado · data-speed = velocidad (1 = normal). -->
+  <figure class="card card--left" style="--top:150vh" data-speed="1.1">
+    <div class="card__frame"><img src="img/placeholder.svg" alt="Descripción de la imagen 1"></div>
+    <figcaption>Texto 1</figcaption>
+  </figure>
+  <figure class="card card--right" style="--top:205vh" data-speed="0.9">
+    <div class="card__frame"><img src="img/placeholder.svg" alt="Descripción de la imagen 2"></div>
+    <figcaption>Texto 2</figcaption>
+  </figure>
+  <figure class="card card--left" style="--top:260vh" data-speed="0.9">
+    <div class="card__frame"><img src="img/placeholder.svg" alt="Descripción de la imagen 3"></div>
+    <figcaption>Texto 3</figcaption>
+  </figure>
+  <figure class="card card--right" style="--top:315vh" data-speed="0.9">
+    <div class="card__frame"><img src="img/placeholder.svg" alt="Descripción de la imagen 4"></div>
+    <figcaption>Texto 4</figcaption>
+  </figure>
+  <figure class="card card--left" style="--top:370vh" data-speed="0.9">
+    <div class="card__frame"><img src="img/placeholder.svg" alt="Descripción de la imagen 5"></div>
+    <figcaption>Texto 5</figcaption>
+  </figure>
+  <figure class="card card--right" style="--top:425vh" data-speed="0.8">
+    <div class="card__frame"><img src="img/placeholder.svg" alt="Descripción de la imagen 6"></div>
+    <figcaption>Texto 6</figcaption>
+  </figure>
+</div>
+
+<section id="access" aria-label="Acceso al foro">
+  <div class="auth">
+    <button type="button" class="btn btn--ghost" data-auth="login">Iniciar sesión</button>
+    <button type="button" class="btn btn--solid" data-auth="register">Registrarse</button>
+  </div>
+</section>
+
+<script src="js/dna.js"></script>
+<script src="js/cards.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

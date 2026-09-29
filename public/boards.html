@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/forms.css">
+<title>Subforos · DEEPSEEKAI</title>
+</head>
+<body>
+<main class="page">
+  <div class="top">
+    <a href="index.html">DEEPSEEKAI</a>
+    <nav>
+      <span id="guest" hidden><a href="login.html">Iniciar sesión</a> · <a href="register.html">Registrarse</a></span>
+      <span id="user" hidden><span id="who"></span> · <button class="link" id="logout" type="button">Cerrar sesión</button></span>
+    </nav>
+  </div>
+  <h2>Elige un subforo</h2>
+  <section class="boards" id="boards" aria-live="polite">Cargando subforos…</section>
+  <noscript><p class="msg">Activa JavaScript para ver los subforos.</p></noscript>
+</main>
+<script src="js/api.js" onerror="document.querySelector('main').insertAdjacentHTML('beforeend','<p class=\'msg\'>No se pudo cargar '+this.getAttribute('src')+'. Comprueba que existe en public/js/.</p>')"></script>
+<script src="js/session.js" onerror="document.querySelector('main').insertAdjacentHTML('beforeend','<p class=\'msg\'>No se pudo cargar '+this.getAttribute('src')+'. Comprueba que existe en public/js/.</p>')"></script>
+<script src="js/board-list.js" onerror="document.querySelector('main').insertAdjacentHTML('beforeend','<p class=\'msg\'>No se pudo cargar '+this.getAttribute('src')+'. Comprueba que existe en public/js/.</p>')"></script>
+</body>
+</html>
