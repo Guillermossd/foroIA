@@ -35,11 +35,11 @@
 /* ================= HILOS (publicaciones) ================= */
 .post{
   /* Ajustes rápidos: cambia estos valores para probar */
-  --post-border-width:3px;              /* grosor del marco */
+  --post-border-width:1px;              /* grosor del marco */
   --post-border-color:#3a3a3e;          /* gris oscuro del marco */
   --post-radius:20px;                   /* redondeo de las esquinas */
-  --post-glass-top:rgba(255,255,255,.09);    /* cristal: brillo arriba-izquierda */
-  --post-glass-bottom:rgba(255,255,255,.03); /* cristal: transparencia abajo-derecha */
+  --post-glass-top:rgba(32, 31, 31, 0.09);    /* cristal: brillo arriba-izquierda */
+  --post-glass-bottom:rgba(15, 14, 14, 0.03); /* cristal: transparencia abajo-derecha */
   --post-blur:14px;                     /* desenfoque de lo que hay detrás */
 
   position:relative;                                                /* para colocar los iconos arriba a la derecha */
