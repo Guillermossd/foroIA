@@ -1,31 +1,28 @@
-// Página de selección de subforos (boards.html).
+// boards.html: barra lateral + últimas publicaciones de todos los subforos.
 (function(){
-  var list = document.getElementById("boards");
+  var feed = document.getElementById("feed");
 
-  function row(b){
-    var a = document.createElement("a");
-    a.className = "board";
-    a.href = "forum.html?b=" + encodeURIComponent(b.slug);
+  function fmt(s){ return new Date(s.replace(" ", "T") + "Z").toLocaleString("es-ES", { dateStyle: "medium", timeStyle: "short" }); }
 
-    var h = document.createElement("h3");
-    var name = document.createElement("span"); name.textContent = b.name;
-    var logo = document.createElement("img"); logo.className = "logo"; logo.src = b.logo; logo.alt = "";
-    h.append(name, logo);
-
-    var d = document.createElement("p"); d.textContent = b.description;
+  function item(x){
+    var art = document.createElement("article"); art.className = "post";
+    var h = document.createElement("h3"); h.textContent = x.title;
     var m = document.createElement("div"); m.className = "meta";
-    m.textContent = b.posts + (b.posts === 1 ? " publicación" : " publicaciones");
-
-    a.append(h, d, m);
-    return a;
+    var a = document.createElement("a"); a.className = "link"; a.href = "forum.html?b=" + encodeURIComponent(x.board_slug); a.textContent = x.board_name;
+    m.append(a, document.createTextNode(" · " + x.username + " · " + fmt(x.created_at)));
+    var b = document.createElement("p"); b.className = "body clamp"; b.textContent = x.body;
+    art.append(h, m, b);
+    return art;
   }
 
-  // La barra superior y la lista son independientes: si una falla, la otra sigue.
+  // Cada parte es independiente: si una falla, las demás siguen.
   initNav().catch(function(){});
+  renderSidebar(null);
 
-  api("/boards").then(function(data){
-    list.replaceChildren.apply(list, data.boards.map(row));
+  api("/latest").then(function(data){
+    if (!data.posts.length) { feed.textContent = "Aún no hay publicaciones. Elige un subforo y escribe la primera."; return; }
+    feed.replaceChildren.apply(feed, data.posts.map(item));
   }).catch(function(err){
-    list.textContent = "No se pudieron cargar los subforos: " + err.message;
+    feed.textContent = "No se pudieron cargar las publicaciones: " + err.message;
   });
 })();

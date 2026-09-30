@@ -29,6 +29,7 @@
 
   async function init(){
     if (!slug) { location.replace("boards.html"); return; }
+    renderSidebar(slug);
     var me = await initNav();
     await load();
     $("composer").hidden = !me;

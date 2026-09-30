@@ -15,7 +15,7 @@ textarea{min-height:140px;resize:vertical}
 .msg{min-height:1.4em;font-weight:200;font-size:.9rem;color:#ff8a8a}
 .hint{font-weight:200;font-size:.9rem;color:rgba(255,255,255,.6);margin-top:24px}
 .hint a{color:var(--fg)}
-.post{border-top:1px solid var(--border);padding:28px 0}
+/* El marco de cada hilo (.post) está en layout.css, sección HILOS */
 .post h3{margin:0 0 6px;font-weight:300;font-size:1.2rem;letter-spacing:-.01em}
 .post .meta{font-weight:200;font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:14px}
 .post .body{margin:0;font-weight:200;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}

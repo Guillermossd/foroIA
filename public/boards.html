@@ -9,23 +9,34 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/buttons.css">
 <link rel="stylesheet" href="css/forms.css">
-<title>Subforos · DEEPSEEKAI</title>
+<link rel="stylesheet" href="css/layout.css">
+<title>Foro · DEEPSEEKAI</title>
 </head>
 <body>
-<main class="page">
-  <div class="top">
-    <a href="index.html">DEEPSEEKAI</a>
-    <nav>
-      <span id="guest" hidden><a href="login.html">Iniciar sesión</a> · <a href="register.html">Registrarse</a></span>
-      <span id="user" hidden><span id="who"></span> · <button class="link" id="logout" type="button">Cerrar sesión</button></span>
-    </nav>
-  </div>
-  <h2>Elige un subforo</h2>
-  <section class="boards" id="boards" aria-live="polite">Cargando subforos…</section>
-  <noscript><p class="msg">Activa JavaScript para ver los subforos.</p></noscript>
-</main>
+<div class="shell">
+  <aside class="side">
+    <a class="brand" href="index.html">DEEPSEEKAI</a>
+    <div>
+      <div class="side__label">Subforos</div>
+      <nav class="side__list" id="side-boards" aria-label="Subforos"></nav>
+    </div>
+  </aside>
+  <main class="content">
+    <div class="top">
+      <nav>
+        <span id="guest" hidden><a href="login.html">Iniciar sesión</a> · <a href="register.html">Registrarse</a></span>
+        <span id="user" hidden><span id="who"></span> · <button class="link" id="logout" type="button">Cerrar sesión</button></span>
+      </nav>
+    </div>
+    <h2>Últimas publicaciones</h2>
+    <p class="sub">Elige un subforo en el menú de la izquierda.</p>
+    <section id="feed" aria-live="polite">Cargando…</section>
+    <noscript><p class="msg">Activa JavaScript para ver el foro.</p></noscript>
+  </main>
+</div>
 <script src="js/api.js" onerror="document.querySelector('main').insertAdjacentHTML('beforeend','<p class=\'msg\'>No se pudo cargar '+this.getAttribute('src')+'. Comprueba que existe en public/js/.</p>')"></script>
 <script src="js/session.js" onerror="document.querySelector('main').insertAdjacentHTML('beforeend','<p class=\'msg\'>No se pudo cargar '+this.getAttribute('src')+'. Comprueba que existe en public/js/.</p>')"></script>
+<script src="js/sidebar.js" onerror="document.querySelector('main').insertAdjacentHTML('beforeend','<p class=\'msg\'>No se pudo cargar '+this.getAttribute('src')+'. Comprueba que existe en public/js/.</p>')"></script>
 <script src="js/board-list.js" onerror="document.querySelector('main').insertAdjacentHTML('beforeend','<p class=\'msg\'>No se pudo cargar '+this.getAttribute('src')+'. Comprueba que existe en public/js/.</p>')"></script>
 </body>
 </html>

@@ -78,6 +78,14 @@ app.get("/api/me", (req, res) => {
 // ---------- Subforos y publicaciones ----------
 const boardBySlug = db.prepare("SELECT id, slug, name, description, logo FROM boards WHERE slug = ?");
 
+app.get("/api/latest", (req, res) => {
+  const posts = db.prepare(`SELECT p.id, p.title, p.body, p.created_at, u.username,
+      b.slug AS board_slug, b.name AS board_name
+    FROM posts p JOIN users u ON u.id = p.user_id JOIN boards b ON b.id = p.board_id
+    ORDER BY p.id DESC LIMIT 20`).all();
+  res.json({ posts });
+});
+
 app.get("/api/boards", (req, res) => {
   const boards = db.prepare(`SELECT b.slug, b.name, b.description, b.logo,
       (SELECT COUNT(*) FROM posts p WHERE p.board_id = b.id) AS posts
