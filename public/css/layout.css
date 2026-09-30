@@ -35,13 +35,14 @@
 /* ================= HILOS (publicaciones) ================= */
 .post{
   /* Ajustes rápidos: cambia estos valores para probar */
-  --post-border-width:1px;              /* grosor del marco */
+  --post-border-width:3px;              /* grosor del marco */
   --post-border-color:#3a3a3e;          /* gris oscuro del marco */
   --post-radius:20px;                   /* redondeo de las esquinas */
-  --post-glass-top:rgba(32, 32, 34, 0.88);      /* cristal: gris oscuro arriba-izquierda */
-  --post-glass-bottom:rgba(17, 17, 19, 0.92);   /* cristal: gris oscuro abajo-derecha */
+  --post-glass-top:rgba(255,255,255,.09);    /* cristal: brillo arriba-izquierda */
+  --post-glass-bottom:rgba(255,255,255,.03); /* cristal: transparencia abajo-derecha */
   --post-blur:14px;                     /* desenfoque de lo que hay detrás */
 
+  position:relative;                                                /* para colocar los iconos arriba a la derecha */
   border:var(--post-border-width) solid var(--post-border-color);   /* marco */
   border-radius:var(--post-radius);                                 /* esquinas redondeadas */
   padding:24px 26px;                                                /* espacio interior */
@@ -56,3 +57,20 @@
 .post:hover{border-color:#4d4d53}                                   /* marco algo más claro al pasar el ratón */
 @media (max-width:760px){.post{padding:18px}}                       /* menos relleno en móvil */
 @media (prefers-reduced-motion:reduce){.post{transition:none}}
+
+/* ============ ACCIONES DEL HILO (lápiz y papelera) ============ */
+.post__actions{position:absolute;top:14px;right:16px;display:flex;gap:4px}   /* posición: arriba a la derecha */
+.post--mine h3{padding-right:80px}                                          /* evita que el título pase bajo los iconos */
+.icon-btn{
+  appearance:none;background:transparent;border:0;border-radius:10px;cursor:pointer;
+  width:34px;height:34px;display:grid;place-items:center;                   /* tamaño del botón */
+  color:rgba(255,255,255,.55);transition:background-color .2s ease,color .2s ease;
+}
+.icon-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round} /* tamaño y trazo del icono */
+.icon-btn:hover{background:rgba(255,255,255,.08);color:#fff}
+.icon-btn--danger:hover{background:rgba(255,90,90,.15);color:#ff8a8a}      /* papelera en rojo al pasar el ratón */
+
+/* Formulario de edición dentro del hilo */
+.form-row{display:flex;gap:12px}
+.btn--sm{min-height:40px;padding:0 22px;font-size:.85rem}
+@media (prefers-reduced-motion:reduce){.icon-btn{transition:none}}

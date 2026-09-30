@@ -33,9 +33,9 @@ CREATE TABLE IF NOT EXISTS posts(
 `);
 
 // Migración: bases de datos anteriores no tenían board_id
-if (!db.prepare("PRAGMA table_info(posts)").all().some((c) => c.name === "board_id")) {
-  db.exec("ALTER TABLE posts ADD COLUMN board_id INTEGER REFERENCES boards(id)");
-}
+const postCols = db.prepare("PRAGMA table_info(posts)").all().map((c) => c.name);
+if (!postCols.includes("board_id")) db.exec("ALTER TABLE posts ADD COLUMN board_id INTEGER REFERENCES boards(id)");
+if (!postCols.includes("edited_at")) db.exec("ALTER TABLE posts ADD COLUMN edited_at TEXT"); // fecha de la última edición
 db.exec("CREATE INDEX IF NOT EXISTS idx_posts_board ON posts(board_id, id)");
 
 // Sincroniza boards.js con la base de datos

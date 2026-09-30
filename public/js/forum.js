@@ -3,19 +3,11 @@
   var $ = function(id){ return document.getElementById(id); };
   var slug = new URLSearchParams(location.search).get("b");
 
-  function fmt(s){ return new Date(s.replace(" ", "T") + "Z").toLocaleString("es-ES", { dateStyle: "medium", timeStyle: "short" }); }
-
   function render(posts){
     var box = $("posts");
     box.replaceChildren();
     if (!posts.length) { var p = document.createElement("p"); p.className = "hint"; p.textContent = "Aún no hay publicaciones en este subforo. Escribe la primera."; box.append(p); return; }
-    posts.forEach(function(x){
-      var art = document.createElement("article"); art.className = "post";
-      var h = document.createElement("h3"); h.textContent = x.title;
-      var m = document.createElement("div"); m.className = "meta"; m.textContent = x.username + " · " + fmt(x.created_at);
-      var b = document.createElement("p"); b.className = "body"; b.textContent = x.body; // textContent evita inyección de HTML
-      art.append(h, m, b); box.append(art);
-    });
+    posts.forEach(function(x){ box.append(renderPost(x, { onChange: load })); }); // renderPost: js/post-card.js
   }
 
   async function load(){

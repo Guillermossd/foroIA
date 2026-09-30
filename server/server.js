@@ -75,15 +75,35 @@ app.get("/api/me", (req, res) => {
   res.json({ user: u ? { username: u.username } : null });
 });
 
+// Marca con mine:true los hilos del usuario actual y oculta user_id
+const withMine = (rows, me) => rows.map(({ user_id, ...p }) => ({ ...p, mine: !!me && user_id === me.id }));
+
+// Valida título y texto de un hilo (para crear y para editar)
+function readPost(input) {
+  const title = str(input.title), text = str(input.body);
+  if (title.length < 3 || title.length > 120) return { error: "El título debe tener entre 3 y 120 caracteres." };
+  if (text.length < 1 || text.length > 5000) return { error: "El texto debe tener entre 1 y 5000 caracteres." };
+  return { title, text };
+}
+
+// Devuelve el hilo si existe y es del usuario; si no, responde con el error y devuelve null
+function ownPost(req, res) {
+  const id = Number(req.params.id);
+  const post = Number.isInteger(id) ? db.prepare("SELECT id, user_id FROM posts WHERE id = ?").get(id) : null;
+  if (!post) { fail(res, 404, "Publicación no encontrada."); return null; }
+  if (post.user_id !== req.user.id) { fail(res, 403, "Solo puedes modificar tus propias publicaciones."); return null; }
+  return post;
+}
+
 // ---------- Subforos y publicaciones ----------
 const boardBySlug = db.prepare("SELECT id, slug, name, description, logo FROM boards WHERE slug = ?");
 
 app.get("/api/latest", (req, res) => {
-  const posts = db.prepare(`SELECT p.id, p.title, p.body, p.created_at, u.username,
+  const posts = db.prepare(`SELECT p.id, p.user_id, p.title, p.body, p.created_at, p.edited_at, u.username,
       b.slug AS board_slug, b.name AS board_name
     FROM posts p JOIN users u ON u.id = p.user_id JOIN boards b ON b.id = p.board_id
     ORDER BY p.id DESC LIMIT 20`).all();
-  res.json({ posts });
+  res.json({ posts: withMine(posts, readUser(req)) });
 });
 
 app.get("/api/boards", (req, res) => {
@@ -96,21 +116,38 @@ app.get("/api/boards", (req, res) => {
 app.get("/api/boards/:slug", (req, res) => {
   const board = boardBySlug.get(req.params.slug);
   if (!board) return fail(res, 404, "Subforo no encontrado.");
-  const posts = db.prepare(`SELECT p.id, p.title, p.body, p.created_at, u.username
+  const posts = db.prepare(`SELECT p.id, p.user_id, p.title, p.body, p.created_at, p.edited_at, u.username
     FROM posts p JOIN users u ON u.id = p.user_id
     WHERE p.board_id = ? ORDER BY p.id DESC LIMIT 50`).all(board.id);
   const { id, ...publicBoard } = board;
-  res.json({ board: publicBoard, posts });
+  res.json({ board: publicBoard, posts: withMine(posts, readUser(req)) });
 });
 
 app.post("/api/boards/:slug/posts", postLimiter, requireAuth, (req, res) => {
   const board = boardBySlug.get(req.params.slug);
   if (!board) return fail(res, 404, "Subforo no encontrado.");
-  const title = str(req.body.title), body = str(req.body.body);
-  if (title.length < 3 || title.length > 120) return fail(res, 400, "El título debe tener entre 3 y 120 caracteres.");
-  if (body.length < 1 || body.length > 5000) return fail(res, 400, "El texto debe tener entre 1 y 5000 caracteres.");
-  const r = db.prepare("INSERT INTO posts(user_id,board_id,title,body) VALUES(?,?,?,?)").run(req.user.id, board.id, title, body);
+  const v = readPost(req.body);
+  if (v.error) return fail(res, 400, v.error);
+  const r = db.prepare("INSERT INTO posts(user_id,board_id,title,body) VALUES(?,?,?,?)").run(req.user.id, board.id, v.title, v.text);
   res.status(201).json({ id: r.lastInsertRowid });
+});
+
+// Editar un hilo propio
+app.put("/api/posts/:id", postLimiter, requireAuth, (req, res) => {
+  const post = ownPost(req, res);
+  if (!post) return;
+  const v = readPost(req.body);
+  if (v.error) return fail(res, 400, v.error);
+  db.prepare("UPDATE posts SET title = ?, body = ?, edited_at = CURRENT_TIMESTAMP WHERE id = ?").run(v.title, v.text, post.id);
+  res.json({ ok: true });
+});
+
+// Eliminar un hilo propio
+app.delete("/api/posts/:id", postLimiter, requireAuth, (req, res) => {
+  const post = ownPost(req, res);
+  if (!post) return;
+  db.prepare("DELETE FROM posts WHERE id = ?").run(post.id);
+  res.json({ ok: true });
 });
 
 app.use("/api", (req, res) => fail(res, 404, "Ruta no encontrada."));
